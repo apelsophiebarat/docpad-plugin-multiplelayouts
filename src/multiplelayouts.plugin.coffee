@@ -46,18 +46,19 @@ module.exports = (BasePlugin) ->
 				layouts = [layouts]  unless Array.isArray(layouts)
 				layouts.forEach (layout) ->  addTask (complete) ->
 					newDoc = docpad.cloneModel(document)
+					newDoc.removeUrl(newDoc.get('url'))
 					newDoc.set(
 						filename: null
 					)
 					newDoc.setMeta(
 						fullPath: null  # treat it as a virtual document
-						relativePath: document.get('relativeOutDirPath') + '/' + document.get('basename') + '-' + layout + '.' + document.get('extensions').join('.')
+						relativePath: document.get('relativeOutDirPath') + '/' + document.get('basename') + '-' + layout.split('/').pop() + '.' + document.get('extensions').join('.')
 						layout: layout
 						additionalLayoutFor: document.id
 						additionalLayouts: null
 					)
 					newDoc.normalize (err) ->
-						return complete(err)  if err
+						return complete(err) if err
 
 						database.add(newDoc)
 						opts.collection?.add(newDoc)
