@@ -40,7 +40,7 @@
     "docpad": ">=6 <7",
     "projectz": "~0.3.9"
   },
-  "main": "./out/multiplelayouts.plugin.js",
+  "main": "./src/multiplelayouts.plugin.coffee",
   "scripts": {
     "test": "node ./out/multiplelayouts.test.js"
   },
